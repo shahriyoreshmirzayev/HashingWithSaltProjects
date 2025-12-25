@@ -12,9 +12,7 @@ if (type == "1")
     while (true)
     {
         Console.WriteLine("Quyidagilardan birini kiriting:");
-        Console.WriteLine("1 - Parolni HASH qilish.");
-        Console.WriteLine("2 - Parol HASH'ini tekshirish.");
-        Console.WriteLine("0 - Dasturdan chiqish");
+        Console.WriteLine("1 - Parolni HASH qilish.\n2 - Parol HASH'ini tekshirish.\n0 - Dasturdan chiqish");
         string userInputOptionStr = Console.ReadLine()!;
         Console.Clear();
         bool isUserInputOptionValid = int.TryParse(userInputOptionStr, out int userInputOption);
