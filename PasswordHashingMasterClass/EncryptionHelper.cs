@@ -8,9 +8,9 @@ public class EncryptionHelper
     private const int KeySize = 256;
     private const int IvSize = 16;
  
-    public static string Encrypt(string plainText, string password)
+    public static string Encrypt(string Text, string password)
     {
-        if (string.IsNullOrEmpty(plainText))
+        if (string.IsNullOrEmpty(Text))
             throw new ArgumentException("Matn bo'sh bo'lishi mumkin emas!");
 
         if (string.IsNullOrEmpty(password))
@@ -35,7 +35,7 @@ public class EncryptionHelper
 
             using (var encryptor = aes.CreateEncryptor())
             {
-                byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+                byte[] plainBytes = Encoding.UTF8.GetBytes(Text);
                 byte[] encryptedBytes = encryptor.TransformFinalBlock(plainBytes, 0, plainBytes.Length);
 
                 // IV va shifrlangan ma'lumotni birlashtirish
