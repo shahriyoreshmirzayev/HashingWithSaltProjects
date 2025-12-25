@@ -14,14 +14,14 @@ if (a == 1)
         Console.WriteLine("Quyidagilardan birini kiriting:");
         Console.WriteLine("1 - Parolni HASH qilish.");
         Console.WriteLine("2 - Parol HASH'ini tekshirish.");
-
+        Console.WriteLine("0 - Dasturdan chiqish");
         string userInputOptionStr = Console.ReadLine();
         bool isUserInputOptionValid = int.TryParse(userInputOptionStr, out int userInputOption);
         if (!isUserInputOptionValid)
         {
             Console.WriteLine("Noto'g'ri son kiritildi.");
         }
-        else
+        else if(userInputOptionStr == "1" || userInputOptionStr == "2")
         {
             if (userInputOption == 1)
             {
@@ -45,6 +45,10 @@ if (a == 1)
                 Console.WriteLine(output);
                 Console.WriteLine();
             }
+        }
+        else if(userInputOptionStr == "0")
+        {
+            Console.WriteLine("EXIT");
         }
         Console.WriteLine("Dastur qaytadan ishga tushadi...");
         Console.WriteLine("\n");
