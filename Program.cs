@@ -7,7 +7,7 @@ SHAHRIYOR:
 
 Console.WriteLine("1. Parolni SHA256 orqali HASH qilish \n2. Encryption Decryption qilish");
 string type = Console.ReadLine();
-int a = int.Parse(Console.ReadLine()!);
+//int a = int.Parse(Console.ReadLine()!);
 if (type == "1")
 {
     while (true)
@@ -16,6 +16,7 @@ if (type == "1")
         Console.WriteLine("1 - Parolni HASH qilish.");
         Console.WriteLine("2 - Parol HASH'ini tekshirish.");
         Console.WriteLine("0 - Dasturdan chiqish");
+        Console.Clear();
         string userInputOptionStr = Console.ReadLine();
         bool isUserInputOptionValid = int.TryParse(userInputOptionStr, out int userInputOption);
         if (!isUserInputOptionValid)
