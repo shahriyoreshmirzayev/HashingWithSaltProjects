@@ -115,7 +115,7 @@ else if (a == 2)
     Console.WriteLine("   • MD5 yoki SHA1 ishlatish (zaif!)\n");
 
     Console.WriteLine("╔═══════════════════════════════════════════════════════╗");
-    Console.WriteLine("║   DEMO TUGADI - Savol-javob uchun tayyor!           ║");
+    Console.WriteLine("║   DEMO TUGADI - Savol-javob uchun tayyor!             ║");
     Console.WriteLine("╚═══════════════════════════════════════════════════════╝");
 
     Console.ReadKey();
