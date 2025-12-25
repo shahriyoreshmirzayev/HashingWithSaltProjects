@@ -1,4 +1,4 @@
-﻿using HashingWithSaltProjects;
+﻿using HashingWithSaltProjects.HashingWithSalt;
 
 Console.WriteLine("Hello, World!");
 

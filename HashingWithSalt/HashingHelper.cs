@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace HashingWithSaltProjects;
+namespace HashingWithSaltProjects.HashingWithSalt;
 
 public class HashingHelper
 {
