@@ -53,7 +53,7 @@ else if (a == 2)
 {
     Console.OutputEncoding = Encoding.UTF8;
     Console.WriteLine("╔═══════════════════════════════════════════════════════╗");
-    Console.WriteLine("║   PAROL XAVFSIZLIGI - MASTER CLASS DEMO              ║");
+    Console.WriteLine("║   PAROL XAVFSIZLIGI - MASTER CLASS DEMO               ║");
     Console.WriteLine("╚═══════════════════════════════════════════════════════╝\n");
 
     // ============= QISM 1: PAROL HASHING =============
