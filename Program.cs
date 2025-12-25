@@ -6,8 +6,9 @@ using System.Text;
 SHAHRIYOR:
 
 Console.WriteLine("1. Parolni SHA256 orqali HASH qilish \n2. Encryption Decryption qilish");
+string type = Console.ReadLine();
 int a = int.Parse(Console.ReadLine()!);
-if (a == 1)
+if (type == "1")
 {
     while (true)
     {
@@ -54,7 +55,7 @@ if (a == 1)
         Console.WriteLine("\n");
     }
 }
-else if (a == 2)
+else if (type == "2")
 {
 
     Console.OutputEncoding = Encoding.UTF8;
@@ -93,11 +94,11 @@ else if (a == 2)
 
 
 }
-else if (a != 0 || a != 1 || a != 2)
+else if (type != "0" || type != "1" || type != "2")
 {
     Console.WriteLine("Xato son kiritildi.");
 }
-else if (a == 0)
+else if (type == "0")
 {
     Console.WriteLine("Dasturdan chiqildi. Xayr!");
     //break;
