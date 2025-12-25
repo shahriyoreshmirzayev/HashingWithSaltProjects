@@ -5,7 +5,7 @@ using System.Text;
 SHAHRIYOR:
 
 Console.WriteLine("1. Parolni SHA256 orqali HASH qilish \n2. Encryption Decryption qilish");
-string type = Console.ReadLine();
+string type = Console.ReadLine()!;
 Console.Clear();
 if (type == "1")
 {
@@ -15,7 +15,7 @@ if (type == "1")
         Console.WriteLine("1 - Parolni HASH qilish.");
         Console.WriteLine("2 - Parol HASH'ini tekshirish.");
         Console.WriteLine("0 - Dasturdan chiqish");
-        string userInputOptionStr = Console.ReadLine();
+        string userInputOptionStr = Console.ReadLine()!;
         Console.Clear();
         bool isUserInputOptionValid = int.TryParse(userInputOptionStr, out int userInputOption);
         if (!isUserInputOptionValid)
@@ -26,7 +26,7 @@ if (type == "1")
             if (userInputOption == 1)
             {
                 Console.WriteLine("Parolni kiriting:");
-                string hashStr = Console.ReadLine();
+                string hashStr = Console.ReadLine()!;
 
                 string hashedPassword = HashingHelper.GetHash(hashStr);
                 Console.WriteLine($"Parolning HASH-qiymati: {hashedPassword}");
@@ -35,10 +35,10 @@ if (type == "1")
             if (userInputOption == 2)
             {
                 Console.WriteLine("HASH'ni kiriting:");
-                string hashStr = Console.ReadLine();
+                string hashStr = Console.ReadLine()!;
 
                 Console.WriteLine("Solishtirmoqchi bo'lgan parolni kiriting:");
-                string input = Console.ReadLine();
+                string input = Console.ReadLine()!;
 
                 bool isValid = HashingHelper.IsHashValid(input, hashStr);
                 string output = isValid ? "HASH to'g'ri!" : "HASH noto'g'ri.";
@@ -63,7 +63,7 @@ else if (type == "2")
     while (true)
     {
         Console.WriteLine("1 - Ma'lumotni shifrlash (Encryption)\n2 - Ma'lumotni ochish (Decryption)\n0 - Chiqish");
-        string choice = Console.ReadLine();
+        string choice = Console.ReadLine()!;
         Console.Clear();
         Console.WriteLine();
 
@@ -108,7 +108,7 @@ static void EncryptData()
 {
     // Ma'lumotni kiritish
     Console.Write("Shifrlash uchun ma'lumotni kiriting: ");
-    string plainText = Console.ReadLine();
+    string plainText = Console.ReadLine()!;
 
     if (string.IsNullOrWhiteSpace(plainText))
     {
@@ -146,7 +146,7 @@ static void DecryptData()
 {
     // Shifrlangan ma'lumotni kiritish
     Console.Write("Shifrlangan ma'lumotni kiriting: ");
-    string encryptedText = Console.ReadLine();
+    string encryptedText = Console.ReadLine()!;
 
     if (string.IsNullOrWhiteSpace(encryptedText))
     {
