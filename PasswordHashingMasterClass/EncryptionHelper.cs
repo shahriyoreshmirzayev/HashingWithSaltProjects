@@ -7,10 +7,7 @@ public class EncryptionHelper
 {
     private const int KeySize = 256;
     private const int IvSize = 16;
-
-    /// <summary>
-    /// Ma'lumotni shifrlash (AES-256-CBC)
-    /// </summary>
+ 
     public static string Encrypt(string plainText, string password)
     {
         if (string.IsNullOrEmpty(plainText))
@@ -50,10 +47,7 @@ public class EncryptionHelper
             }
         }
     }
-
-    /// <summary>
-    /// Ma'lumotni deshifrlash
-    /// </summary>
+     
     public static string Decrypt(string encryptedText, string password)
     {
         if (string.IsNullOrEmpty(encryptedText))
