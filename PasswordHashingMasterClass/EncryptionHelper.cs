@@ -3,7 +3,7 @@ using System.Text;
 
 namespace HashingWithSaltProjects;
 
-public class DataEncryption
+public class EncryptionHelper
 {
     private const int KeySize = 256;
     private const int IvSize = 16;
@@ -16,10 +16,14 @@ public class DataEncryption
         if (string.IsNullOrEmpty(plainText))
             throw new ArgumentException("Matn bo'sh bo'lishi mumkin emas!");
 
-        // Paroldan kalit generatsiya qilish
+        if (string.IsNullOrEmpty(password))
+            throw new ArgumentException("Parol bo'sh bo'lishi mumkin emas!");
+
+        // Paroldan 256-bit kalit generatsiya qilish
         byte[] key = DeriveKey(password);
         byte[] iv = new byte[IvSize];
 
+        // Random IV generatsiya
         using (var rng = RandomNumberGenerator.Create())
         {
             rng.GetBytes(iv);
@@ -37,7 +41,7 @@ public class DataEncryption
                 byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
                 byte[] encryptedBytes = encryptor.TransformFinalBlock(plainBytes, 0, plainBytes.Length);
 
-                // IV va encrypted datani birlashtirish
+                // IV va shifrlangan ma'lumotni birlashtirish
                 byte[] result = new byte[iv.Length + encryptedBytes.Length];
                 Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
                 Buffer.BlockCopy(encryptedBytes, 0, result, iv.Length, encryptedBytes.Length);
@@ -55,10 +59,13 @@ public class DataEncryption
         if (string.IsNullOrEmpty(encryptedText))
             throw new ArgumentException("Shifrlangan matn bo'sh bo'lishi mumkin emas!");
 
+        if (string.IsNullOrEmpty(password))
+            throw new ArgumentException("Parol bo'sh bo'lishi mumkin emas!");
+
         byte[] key = DeriveKey(password);
         byte[] fullData = Convert.FromBase64String(encryptedText);
 
-        // IV va encrypted datani ajratish
+        // IV va shifrlangan datani ajratish
         byte[] iv = new byte[IvSize];
         byte[] encryptedBytes = new byte[fullData.Length - IvSize];
 
@@ -80,6 +87,7 @@ public class DataEncryption
         }
     }
 
+    // Paroldan 256-bit kalit hosil qilish
     private static byte[] DeriveKey(string password)
     {
         using (var sha256 = SHA256.Create())

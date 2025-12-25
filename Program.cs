@@ -1,5 +1,6 @@
 ﻿using HashingWithSaltProjects;
 using HashingWithSaltProjects.HashingWithSalt;
+using System.Security.Cryptography;
 using System.Text;
 
 SHAHRIYOR:
@@ -51,74 +52,50 @@ if (a == 1)
 }
 else if (a == 2)
 {
+
     Console.OutputEncoding = Encoding.UTF8;
-    Console.WriteLine("╔═══════════════════════════════════════════════════════╗");
-    Console.WriteLine("║   PAROL XAVFSIZLIGI - MASTER CLASS DEMO               ║");
-    Console.WriteLine("╚═══════════════════════════════════════════════════════╝\n");
 
-    // ============= QISM 1: PAROL HASHING =============
-    Console.WriteLine("📌 QISM 1: PAROL HASHING (To'g'ri usul)\n");
-    Console.WriteLine("   Parollar HECH QACHON decrypt qilinmaydi!");
-    Console.WriteLine("   Faqat hash va tekshirish!\n");
+    while (true)
+    {
+        Console.Clear();
+        Console.WriteLine("╔═══════════════════════════════════════════════════════╗");
+        Console.WriteLine("║        MA'LUMOT SHIFRLASH DASTURI (AES-256)           ║");
+        Console.WriteLine("╚═══════════════════════════════════════════════════════╝");
+        Console.WriteLine();
+        Console.WriteLine("  1 - Ma'lumotni shifrlash (Encryption)");
+        Console.WriteLine("  2 - Ma'lumotni ochish (Decryption)");
+        Console.WriteLine("  0 - Chiqish");
+        Console.WriteLine();
+        Console.Write("Tanlang (1/2/0): ");
 
-    string userPassword = "MySecureP@ss123";
-    Console.WriteLine($"Original parol: {userPassword}");
+        string choice = Console.ReadLine();
+        Console.WriteLine();
 
-    // Parolni hash qilish
-    string hashedPassword = PasswordHasher.HashPassword(userPassword);
-    Console.WriteLine($"\n✅ Hash natija:");
-    Console.WriteLine($"   {hashedPassword}");
-    Console.WriteLine($"   Uzunlik: {hashedPassword.Length} belgi\n");
+        if (choice == "1")
+        {
+            EncryptData();
+        }
+        else if (choice == "2")
+        {
+            DecryptData();
+        }
+        else if (choice == "0")
+        {
+            Console.WriteLine("Dasturdan chiqildi. Xayr!");
+            break;
+        }
+        else
+        {
+            Console.WriteLine("❌ Noto'g'ri tanlov! 1, 2 yoki 0 ni tanlang.");
+            Console.WriteLine("Davom etish uchun Enter bosing...");
+            Console.ReadLine();
+        }
+    }
 
-    // To'g'ri parolni tekshirish
-    bool isValid = PasswordHasher.VerifyPassword(userPassword, hashedPassword);
-    Console.WriteLine($"✅ To'g'ri parol: {isValid}");
 
-    // Noto'g'ri parolni tekshirish
-    bool isInvalid = PasswordHasher.VerifyPassword("WrongPassword", hashedPassword);
-    Console.WriteLine($"❌ Noto'g'ri parol: {isInvalid}\n");
 
-    Console.WriteLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
-    // ============= QISM 2: MA'LUMOT SHIFRLASH =============
-    Console.WriteLine("📌 QISM 2: MA'LUMOT SHIFRLASH (AES-256)\n");
-    Console.WriteLine("   Bu FAQAT maxfiy ma'lumotlar uchun!");
-    Console.WriteLine("   Parollar uchun ISHLATILMAYDI!\n");
 
-    string secretData = "Karta raqami: 1234-5678-9012-3456";
-    string encryptionKey = "MyMasterKey2024!";
-
-    Console.WriteLine($"Original ma'lumot: {secretData}");
-
-    // Shifrlash
-    string encrypted = DataEncryption.Encrypt(secretData, encryptionKey);
-    Console.WriteLine($"\n🔒 Shifrlangan:");
-    Console.WriteLine($"   {encrypted}\n");
-
-    // Deshifrlash
-    string decrypted = DataEncryption.Decrypt(encrypted, encryptionKey);
-    Console.WriteLine($"🔓 Deshifrlangan:");
-    Console.WriteLine($"   {decrypted}\n");
-
-    Console.WriteLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
-
-    // ============= QISM 3: XAVFSIZLIK TAMOYILLARI =============
-    Console.WriteLine("📌 QISM 3: XAVFSIZLIK TAMOYILLARI\n");
-    Console.WriteLine("✅ TO'G'RI:");
-    Console.WriteLine("   • Parollarni hash qiling (Argon2, bcrypt, PBKDF2)");
-    Console.WriteLine("   • Har bir parol uchun unique salt");
-    Console.WriteLine("   • Hech qachon parolni dekodlamang\n");
-
-    Console.WriteLine("❌ NOTO'G'RI:");
-    Console.WriteLine("   • Parollarni plain text saqlash");
-    Console.WriteLine("   • Parollarni reversible shifrlash");
-    Console.WriteLine("   • MD5 yoki SHA1 ishlatish (zaif!)\n");
-
-    Console.WriteLine("╔═══════════════════════════════════════════════════════╗");
-    Console.WriteLine("║   DEMO TUGADI - Savol-javob uchun tayyor!             ║");
-    Console.WriteLine("╚═══════════════════════════════════════════════════════╝");
-
-    Console.ReadKey();
 }
 else
 {
@@ -126,4 +103,171 @@ else
 }
 Console.WriteLine("\n");
 
+
+
+static void EncryptData()
+{
+    Console.WriteLine("═══════════════════════════════════════════════════════");
+    Console.WriteLine("           🔒 MA'LUMOTNI SHIFRLASH");
+    Console.WriteLine("═══════════════════════════════════════════════════════");
+    Console.WriteLine();
+
+    // Ma'lumotni kiritish
+    Console.Write("Shifrlash uchun ma'lumotni kiriting: ");
+    string plainText = Console.ReadLine();
+
+    if (string.IsNullOrWhiteSpace(plainText))
+    {
+        Console.WriteLine();
+        Console.WriteLine("❌ Xatolik: Ma'lumot bo'sh bo'lishi mumkin emas!");
+        Console.WriteLine();
+        Console.WriteLine("Davom etish uchun Enter bosing...");
+        Console.ReadLine();
+        return;
+    }
+
+    // Parolni kiritish
+    Console.Write("Shifrlash uchun parol kiriting: ");
+    string password = ReadPassword();
+    Console.WriteLine();
+
+    if (string.IsNullOrWhiteSpace(password))
+    {
+        Console.WriteLine("❌ Xatolik: Parol bo'sh bo'lishi mumkin emas!");
+        Console.WriteLine();
+        Console.WriteLine("Davom etish uchun Enter bosing...");
+        Console.ReadLine();
+        return;
+    }
+
+    try
+    {
+        // Shifrlash
+        string encrypted = EncryptionHelper.Encrypt(plainText, password);
+
+        Console.WriteLine();
+        Console.WriteLine("✅ Ma'lumot muvaffaqiyatli shifrlandi!");
+        Console.WriteLine();
+        Console.WriteLine("───────────────────────────────────────────────────────");
+        Console.WriteLine("📄 Sizning ma'lumotingiz:");
+        Console.WriteLine($"   {plainText}");
+        Console.WriteLine();
+        Console.WriteLine("🔐 Shifrlangan ko'rinish:");
+        Console.WriteLine($"   {encrypted}");
+        Console.WriteLine("───────────────────────────────────────────────────────");
+        Console.WriteLine();
+        Console.WriteLine("💡 Bu shifrlangan ma'lumotni saqlab qo'ying!");
+        Console.WriteLine("   Uni ochish uchun xuddi shu parol kerak bo'ladi.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"❌ Xatolik yuz berdi: {ex.Message}");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine("Davom etish uchun Enter bosing...");
+    Console.ReadLine();
+}
+
+static void DecryptData()
+{
+    Console.WriteLine("═══════════════════════════════════════════════════════");
+    Console.WriteLine("           🔓 MA'LUMOTNI OCHISH");
+    Console.WriteLine("═══════════════════════════════════════════════════════");
+    Console.WriteLine();
+
+    // Shifrlangan ma'lumotni kiritish
+    Console.Write("Shifrlangan ma'lumotni kiriting: ");
+    string encryptedText = Console.ReadLine();
+
+    if (string.IsNullOrWhiteSpace(encryptedText))
+    {
+        Console.WriteLine();
+        Console.WriteLine("❌ Xatolik: Shifrlangan ma'lumot bo'sh bo'lishi mumkin emas!");
+        Console.WriteLine();
+        Console.WriteLine("Davom etish uchun Enter bosing...");
+        Console.ReadLine();
+        return;
+    }
+
+    // Parolni kiritish
+    Console.Write("Parolni kiriting: ");
+    string password = ReadPassword();
+    Console.WriteLine();
+
+    if (string.IsNullOrWhiteSpace(password))
+    {
+        Console.WriteLine("❌ Xatolik: Parol bo'sh bo'lishi mumkin emas!");
+        Console.WriteLine();
+        Console.WriteLine("Davom etish uchun Enter bosing...");
+        Console.ReadLine();
+        return;
+    }
+
+    try
+    {
+        // Deshifrlash
+        string decrypted = EncryptionHelper.Decrypt(encryptedText, password);
+
+        Console.WriteLine();
+        Console.WriteLine("✅ Ma'lumot muvaffaqiyatli ochildi!");
+        Console.WriteLine();
+        Console.WriteLine("───────────────────────────────────────────────────────");
+        Console.WriteLine("📄 Ochilgan ma'lumot:");
+        Console.WriteLine($"   {decrypted}");
+        Console.WriteLine("───────────────────────────────────────────────────────");
+    }
+    catch (CryptographicException)
+    {
+        Console.WriteLine();
+        Console.WriteLine("❌ XATOLIK: Noto'g'ri parol yoki buzilgan ma'lumot!");
+        Console.WriteLine("   Iltimos, to'g'ri parolni kiriting.");
+    }
+    catch (FormatException)
+    {
+        Console.WriteLine();
+        Console.WriteLine("❌ XATOLIK: Noto'g'ri format!");
+        Console.WriteLine("   Shifrlangan ma'lumot noto'g'ri kiritilgan.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine();
+        Console.WriteLine($"❌ Xatolik: {ex.Message}");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine("Davom etish uchun Enter bosing...");
+    Console.ReadLine();
+}
+
+// Parolni yashirin kiritish uchun helper method
+static string ReadPassword()
+{
+    StringBuilder password = new StringBuilder();
+
+    while (true)
+    {
+        ConsoleKeyInfo key = Console.ReadKey(true);
+
+        if (key.Key == ConsoleKey.Enter)
+        {
+            break;
+        }
+        else if (key.Key == ConsoleKey.Backspace)
+        {
+            if (password.Length > 0)
+            {
+                password.Remove(password.Length - 1, 1);
+                Console.Write("\b \b");
+            }
+        }
+        else if (!char.IsControl(key.KeyChar))
+        {
+            password.Append(key.KeyChar);
+            Console.Write("*");
+        }
+    }
+
+    return password.ToString();
+}
 goto SHAHRIYOR;
