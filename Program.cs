@@ -7,7 +7,7 @@ SHAHRIYOR:
 
 Console.WriteLine("1. Parolni SHA256 orqali HASH qilish \n2. Encryption Decryption qilish");
 string type = Console.ReadLine();
-//int a = int.Parse(Console.ReadLine()!);
+Console.Clear();
 if (type == "1")
 {
     while (true)
@@ -16,12 +16,11 @@ if (type == "1")
         Console.WriteLine("1 - Parolni HASH qilish.");
         Console.WriteLine("2 - Parol HASH'ini tekshirish.");
         Console.WriteLine("0 - Dasturdan chiqish");
-        Console.Clear();
         string userInputOptionStr = Console.ReadLine();
+        Console.Clear();
         bool isUserInputOptionValid = int.TryParse(userInputOptionStr, out int userInputOption);
         if (!isUserInputOptionValid)
         {
-            Console.WriteLine("Noto'g'ri son kiritildi.");
         }
         else if (userInputOptionStr == "1" || userInputOptionStr == "2")
         {
@@ -51,6 +50,7 @@ if (type == "1")
         else if (userInputOptionStr == "0")
         {
             Console.WriteLine("EXIT");
+            break;
         }
         Console.WriteLine("Dastur qaytadan ishga tushadi...");
         Console.WriteLine("\n");
@@ -63,12 +63,9 @@ else if (type == "2")
 
     while (true)
     {
-        Console.Clear();
-        Console.WriteLine("  1 - Ma'lumotni shifrlash (Encryption)");
-        Console.WriteLine("  2 - Ma'lumotni ochish (Decryption)");
-        Console.WriteLine("  0 - Chiqish");
-
+        Console.WriteLine("1 - Ma'lumotni shifrlash (Encryption)\n2 - Ma'lumotni ochish (Decryption)\n0 - Chiqish");
         string choice = Console.ReadLine();
+        Console.Clear();
         Console.WriteLine();
 
         if (choice == "1")
@@ -81,12 +78,12 @@ else if (type == "2")
         }
         else if (choice == "0")
         {
-            Console.WriteLine("Dasturdan chiqildi. Xayr!");
+            Console.WriteLine("EXIT");
             break;
         }
         else
         {
-            Console.WriteLine("❌ Noto'g'ri tanlov! 1, 2 yoki 0 ni tanlang.");
+            Console.WriteLine("Noto'g'ri tanlov! 1, 2 yoki 0 ni tanlang.");
         }
     }
 
@@ -136,8 +133,7 @@ static void EncryptData()
         string encrypted = EncryptionHelper.Encrypt(plainText, password);
 
         Console.WriteLine("Ma'lumot muvaffaqiyatli shifrlandi!");
-        Console.WriteLine($"Sizning ma'lumotingiz: {plainText}");
-        Console.WriteLine($"Shifrlangan ko'rinish: {encrypted}");
+        Console.WriteLine($"Sizning ma'lumotingiz: {plainText}\nShifrlangan ko'rinish: {encrypted}");
     }
     catch (Exception ex)
     {
@@ -175,8 +171,8 @@ static void DecryptData()
         // Deshifrlash
         string decrypted = EncryptionHelper.Decrypt(encryptedText, password);
 
-        Console.WriteLine("Ma'lumot muvaffaqiyatli ochildi!");
-        Console.WriteLine($"Ochilgan ma'lumot: {decrypted}");
+        Console.WriteLine("\nMa'lumot muvaffaqiyatli ochildi!");
+        Console.WriteLine($"Ochilgan ma'lumot: {decrypted}\n");
     }
     catch (CryptographicException)
     {
