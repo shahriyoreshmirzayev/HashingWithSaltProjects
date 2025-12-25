@@ -56,8 +56,7 @@ if (type == "1")
     }
 }
 else if (type == "2")
-{
-
+{ 
     Console.OutputEncoding = Encoding.UTF8;
 
     while (true)
@@ -84,12 +83,7 @@ else if (type == "2")
         {
             Console.WriteLine("Noto'g'ri tanlov! 1, 2 yoki 0 ni tanlang.");
         }
-    }
-
-
-
-
-
+    } 
 }
 else if (type != "0" || type != "1" || type != "2")
 {
@@ -101,9 +95,7 @@ else if (type == "0")
     //break;
 }
 Console.WriteLine("\n");
-
-
-
+ 
 static void EncryptData()
 {
     // Ma'lumotni kiritish
